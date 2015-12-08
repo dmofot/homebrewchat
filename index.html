@@ -6,99 +6,95 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<title>Homebrew Chat Member Map</title>
   	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/superhero/bootstrap.min.css" rel="stylesheet">
-		<link href='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
-	  <!--[if lte IE 8]>
-	    <link href='http://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.ie.css' rel='stylesheet'>
-	  <![endif]-->
+  	<link href='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+  		<!--[if lte IE 8]>
+  			<link href='http://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.ie.css' rel='stylesheet'>
+  		<![endif]-->
   	<style>
   		.starter-template {
-		  	padding: 40px 15px;
-		  	text-align: center;
-		}
-		#map {
-			height:400px;
-			width:100%;
-		}
-		#centerpoint {
-		  display: none;
-		  width: 128px;
-		  height: 128px;
-		  background: transparent url(img/crosshair.png) 0 0 no-repeat scroll;
-		  overflow: visible;
-		  position: absolute;
-		  top: 50%;
-		  left: 50%;
-		  margin: -64px 0 0 -64px;
-		  pointer-events: none;
-		  z-index: 11;
-		  opacity: 1;
-		  -webkit-transition: opacity 0.25s;
-		  -moz-transition: opacity 0.25s;
-		  -o-transition: opacity 0.25s;
-		  -ms-transition: opacity 0.25s;
-		  transition: opacity 0.25s;
-		}
-	</style>
+  			padding: 40px 15px;
+  			text-align: center;
+  		}
+  		#map {
+  			height:400px;
+  			width:100%;
+  		}
+  		#centerpoint {
+  			display: none;
+  			width: 128px;
+  			height: 128px;
+  			background: transparent url(img/crosshair.png) 0 0 no-repeat scroll;
+  			overflow: visible;
+  			position: absolute;
+  			top: 50%;
+  			left: 50%;
+  			margin: -64px 0 0 -64px;
+  			pointer-events: none;
+  			z-index: 11;
+  			opacity: 1;
+  			-webkit-transition: opacity 0.25s;
+  			-moz-transition: opacity 0.25s;
+  			-o-transition: opacity 0.25s;
+  			-ms-transition: opacity 0.25s;
+  			transition: opacity 0.25s;
+  		}
+  	</style>
 </head>
 <body>
-
 	<!--ADD THE FORM EMBEDURL BELOW-->
 	<meta itemprop="embedUrl" content="https://docs.google.com/forms/d/1OskkCYjZLAdo-2bEeSBqEQNmweLtXmrJOOUGpZg8eMo/viewform?embedded=true">
 
 	<!--ADD THE FORM RESPONSE ACTION HERE, WITH A REDIRECT-->
 	<script type="text/javascript">var submitted=false;</script>
-    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='http://dmofot.github.io/homebrewchat/results/';}"></iframe>
+	<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='http://dmofot.github.io/homebrewchat/results/';}"></iframe>
 	<form action="https://docs.google.com/forms/d/1OskkCYjZLAdo-2bEeSBqEQNmweLtXmrJOOUGpZg8eMo/formResponse" method="POST" id="ss-form" target="hidden_iframe" onsubmit="submitted=true;">
+		<div class="container">
+			<div class="jumbotron starter-template">
+				<h1>Homebrew Chat Member Map</h1>
+			</div>
+			<div class="starter-template">
+				<h2><em>(1) </em>Where you at?<h2>
+				<p><small>Drag the map to center the marker on your general location</small></p>
+				<div id="map">
+					<span id="centerpoint" class="" style="display: inline;">
+						<span class="shadow"></span>
+						<span class="x"></span>
+						<span class="marker"></span>
+					</span>
+				</div>
+				<div class="starter-template">
+					<h2><em>(2) </em>What's your homebrew chat username?<h2>
+					<input class="form-control" name="entry.1916041296" value="" id="entry_1916041296" placeholder="Username">
+				</div>
+				<!-- ADD GOOGLEFORM-RELATED INPUTS HERE, ALL HIDDEN.
+				THEY'LL BE GIVEN VALUES IN THE SCRIPT BELOW
+				THE "NAME" AND "ID" PARAMETERS MUST CORRESPOND TO
+				THOSE IN THE SOURCE OF THE GOOGLE-HOSTED LIVE FORM-->
 
-	  	<div class="container">
-	  		<div class="jumbotron starter-template">
-	  			<h1>Homebrew Chat Member Map</h1>
-	  		</div>
-
-	  		<div class="starter-template">
-	  			<h2><em>(1) </em>Where you at?<h2>
-	  			<p><small>Drag the map to center the marker on your general location</small></p>
-	  			<div id="map">
-	  				<span id="centerpoint" class="" style="display: inline;">
-	  					<span class="shadow"></span>
-	  					<span class="x"></span>
-	  					<span class="marker"></span>
-	  				</span>
-	  			</div>
-
-					<div class="starter-template">
-						<h2><em>(2) </em>What's your homebrew chat username?<h2>
-						<input class="form-control" name="entry.1916041296" value="" id="entry_1916041296" placeholder="Username">
-					</div>
-	  			<!-- ADD GOOGLEFORM-RELATED INPUTS HERE, ALL HIDDEN.
-	  			THEY'LL BE GIVEN VALUES IN THE SCRIPT BELOW
-	  			THE "NAME" AND "ID" PARAMETERS MUST CORRESPOND TO
-	  			THOSE IN THE SOURCE OF THE GOOGLE-HOSTED LIVE FORM-->
-
-	  			<!-- QUESTION 2: LAT/LONG -->
-	  		<input type="hidden" name="entry.2119658880" value="" id="entry_2119658880">
+				<!-- QUESTION 2: LAT/LONG -->
+				<input type="hidden" name="entry.2119658880" value="" id="entry_2119658880">
 				<input type="hidden" name="entry.1984352115" value="" id="entry_1984352115">
 
 				<!-- PAGE STUFF -->
 				<input type="hidden" name="pageNumber" value="0">
 				<input type="hidden" name="backupCache" value="">
-	  		</div>
-	  		<div class="starter-template">
-	  			<h2>That's it! Thanks!<h2>
-	  		    <input type="submit" name="submit" value="Submit" class="btn-lg btn-success">
-	  		    <hr>
-	  		    <p><small><em>a @dmofot joint</small></em></p>
-	  		</div>
-	  	</div>
-  	</form>
+			</div>
+			<div class="starter-template">
+				<h2>That's it! Thanks!<h2>
+				<input type="submit" name="submit" value="Submit" class="btn-lg btn-success">
+				<hr>
+				<p><small><em>a @dmofot joint</small></em></p>
+			</div>
+		</div>
+	</form>
 
-	  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-		<script src='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
-    <script type='text/javascript'>
-	  // Set default location in case the IP doesn't have one
-	  var y = 37.09024;
-	  var x = -95.71289;
+	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+	<script type='text/javascript'>
+		// Set default location in case the IP doesn't have one
+		var y = 37.09024;
+		var x = -95.71289;
 		var z = 4;
 		$('#entry_2119658880').attr('value', y);
 		$('#entry_1984352115').attr('value', x);
@@ -116,15 +112,15 @@
 		// Grab IP location from freegeoip API
 		$.getJSON('https://freegeoip.net/json/', function(json) {
 			if (json) {
-	      y = json.latitude;
-	      x = json.longitude;
+				y = json.latitude;
+				x = json.longitude;
 				z = 6
 				// Set form lat/lon fields from map center location
-		    $('#entry_2119658880').attr('value', y);
-	      $('#entry_1984352115').attr('value', x);
+				$('#entry_2119658880').attr('value', y);
+				$('#entry_1984352115').attr('value', x);
 				map.panTo([y, x]);
 			}
-	  });
-</script>
+		});
+	</script>
 </body>
 </html>
