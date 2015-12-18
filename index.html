@@ -102,8 +102,8 @@
 		$('#entry_1984352115').attr('value', x);
 
 		// Build the map
-		L.mapbox.accessToken = 'pk.eyJ1IjoiZG1vZm90IiwiYSI6IjMyODFmMjkwYTQ1NjUxYTEzOWYwOGZlMTMxY2FjZThiIn0.eNpL_ksyAN2Tcy5UeLqhyQ';
-		var map = L.mapbox.map('map', 'dmofot.n9pd56jd', {scrollWheelZoom:false}).setView([y, x], z);
+		L.mapbox.accessToken = 'your_api_key_here';
+		var map = L.mapbox.map('map', 'your_id_here.map_id_here', {scrollWheelZoom:false}).setView([y, x], z);
 
 		// Update these values as the map gets dragged around
 		map.on('moveend', function(event) {
