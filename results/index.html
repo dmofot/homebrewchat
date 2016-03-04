@@ -51,7 +51,7 @@
 
     <script>
     $.getJSON("https://spreadsheets.google.com/feeds/list/1gNeN_1dzzSgfXKTcksIf_oTdUXJJFqPGsKQpSReHo3A/1/public/values?alt=json", function(data) {
-        L.mapbox.accessToken = 'pk.eyJ1IjoiZG1vZm90IiwiYSI6IjMyODFmMjkwYTQ1NjUxYTEzOWYwOGZlMTMxY2FjZThiIn0.eNpL_ksyAN2Tcy5UeLqhyQ';
+        L.mapbox.accessToken = 'your_api_key_here';
         var map = L.mapbox.map('map', 'mapbox.mapbox-streets-v7')
 
         var brewers = data.feed.entry;
