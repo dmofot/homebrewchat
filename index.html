@@ -106,7 +106,7 @@
 
 		// Build the map
 		L.mapbox.accessToken = 'pk.eyJ1IjoiZG1vZm90IiwiYSI6IjMyODFmMjkwYTQ1NjUxYTEzOWYwOGZlMTMxY2FjZThiIn0.eNpL_ksyAN2Tcy5UeLqhyQ';
-		var map = L.mapbox.map('map', 'mapbox.mapbox-streets-v7', {scrollWheelZoom:false}).setView([y, x], z);
+		var map = L.mapbox.map('map', 'mapbox.streets', {scrollWheelZoom:false}).setView([y, x], z);
 
 		// Update these values as the map gets dragged around
 		map.on('moveend', function(event) {
