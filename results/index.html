@@ -5,7 +5,7 @@
     <meta charset=utf-8 />
     <title>Homebrew Chat Members</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <link href='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+    <link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/flatly/bootstrap.min.css" rel="stylesheet">
     <style>
         body { margin:0; padding:0; }
@@ -47,12 +47,12 @@
 
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
-    <script src='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+    <script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
 
     <script>
     $.getJSON("https://spreadsheets.google.com/feeds/list/1gNeN_1dzzSgfXKTcksIf_oTdUXJJFqPGsKQpSReHo3A/1/public/values?alt=json", function(data) {
         L.mapbox.accessToken = 'pk.eyJ1IjoiZG1vZm90IiwiYSI6IjMyODFmMjkwYTQ1NjUxYTEzOWYwOGZlMTMxY2FjZThiIn0.eNpL_ksyAN2Tcy5UeLqhyQ';
-        var map = L.mapbox.map('map', 'dmofot.n9pd56jd')
+        var map = L.mapbox.map('map', 'mapbox.mapbox-streets-v7')
 
         var brewers = data.feed.entry;
 
