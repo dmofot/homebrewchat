@@ -52,7 +52,15 @@
     <script>
     $.getJSON("https://spreadsheets.google.com/feeds/list/1gNeN_1dzzSgfXKTcksIf_oTdUXJJFqPGsKQpSReHo3A/1/public/values?alt=json", function(data) {
         L.mapbox.accessToken = 'your_api_key_here';
-        var map = L.mapbox.map('map', 'mapbox.mapbox-streets-v7')
+        var map = L.mapbox.map('map', 'mapbox.streets', {
+   	 // These options apply to the tile layer in the map.
+	    tileLayer: {
+        	// This map option disables world wrapping. by default, it is false.
+	        continuousWorld: false,
+        	// This option disables loading tiles outside of the world bounds.
+	        noWrap: true
+	    }
+	});
 
         var brewers = data.feed.entry;
 
