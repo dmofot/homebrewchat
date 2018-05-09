@@ -123,8 +123,7 @@
 		});
 
 		// Grab IP location from freegeoip API
-		var access_key = '534f5cb87b0e34193dedbb83ec3bb93d';
-		$.getJSON('http://api.ipstack.com/check?access_key=' + access_key, function(json) {
+		$.getJSON('https://www.geoip-db.com/json/', function(json) {
 			if (json) {
 				y = json.latitude;
 				x = json.longitude;
