@@ -5,8 +5,8 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<title>Homebrew Chat Member Map</title>
-  	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css" rel="stylesheet">
-  	<link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
+  	<link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/superhero/bootstrap.min.css" rel="stylesheet">
+  	<link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
   		<!--[if lte IE 8]>
   			<link href='http://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.ie.css' rel='stylesheet'>
   		<![endif]-->
@@ -67,7 +67,7 @@
 					</span>
 				</div>
 				<div class="starter-template">
-					<h2><em>(2) </em>What's your homebrew chat username?<h2>
+					<h2><em>(2) </em>What's your homebrew chat handle?<h2>
 					<input class="form-control" name="entry.1916041296" value="" id="entry_1916041296" placeholder="Username">
 				</div>
 				<!-- ADD GOOGLEFORM-RELATED INPUTS HERE, ALL HIDDEN.
@@ -93,9 +93,9 @@
 		</div>
 	</form>
 
-	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
 	<script type='text/javascript'>
 		// Set default location in case the IP doesn't have one
 		var y = 37.09024;
@@ -105,8 +105,13 @@
 		$('#entry_1984352115').attr('value', x);
 
 		// Build the map
+		bounds = new L.LatLngBounds(new L.LatLng(-89.98155760646617, -180), new L.LatLng(89.99346179538875, 180));
 		L.mapbox.accessToken = 'pk.eyJ1IjoiZG1vZm90IiwiYSI6IjMyODFmMjkwYTQ1NjUxYTEzOWYwOGZlMTMxY2FjZThiIn0.eNpL_ksyAN2Tcy5UeLqhyQ';
-		var map = L.mapbox.map('map', 'mapbox.streets', {scrollWheelZoom:false}).setView([y, x], z);
+		var map = L.mapbox.map('map', 'mapbox.streets', {
+			scrollWheelZoom:false,
+			maxBounds: bounds,
+			maxBoundsViscosity: 0.75
+		}).setView([y, x], z);
 
 		// Update these values as the map gets dragged around
 		map.on('moveend', function(event) {
@@ -115,7 +120,8 @@
 		});
 
 		// Grab IP location from freegeoip API
-		$.getJSON('https://freegeoip.net/json/', function(json) {
+		var access_key = '534f5cb87b0e34193dedbb83ec3bb93d';
+		$.getJSON('http://api.ipstack.com/check?access_key=' + access_key, function(json) {
 			if (json) {
 				y = json.latitude;
 				x = json.longitude;
