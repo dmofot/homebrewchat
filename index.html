@@ -42,6 +42,10 @@
   			-ms-transition: opacity 0.25s;
   			transition: opacity 0.25s;
   		}
+        img.resize {
+            max-width:5%;
+            max-height:5%;
+        }
   	</style>
 </head>
 <body>
@@ -50,11 +54,11 @@
 
 	<!--ADD THE FORM RESPONSE ACTION HERE, WITH A REDIRECT-->
 	<script type="text/javascript">var submitted=false;</script>
-	<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='https://dmofot.github.io/homebrewchat/results/';}"></iframe>
+	<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='./results/';}"></iframe>
 	<form action="https://docs.google.com/forms/d/1OskkCYjZLAdo-2bEeSBqEQNmweLtXmrJOOUGpZg8eMo/formResponse" method="POST" id="ss-form" target="hidden_iframe" onsubmit="submitted=true;">
 		<div class="container">
 			<div class="jumbotron starter-template">
-				<h1>Homebrew Chat Member Map</h1>
+				<h1><img class="resize" src="img/hbclogo.png"  alt="HBC"> Homebrew Chat Member Map <img class="resize" src="img/hbclogo.png"  alt="HBC"></h1>
 			</div>
 			<div class="starter-template">
 				<h2><em>(1) </em>Where you at?<h2>
@@ -87,7 +91,7 @@
 				<h2>That's it! Thanks!<h2>
 				<input type="submit" name="submit" value="Submit" class="btn-lg btn-success">
 				<div class="starter-template">
-					<h6>Just show me the <a href="results/" title="map">map</a> already, damnit!</h6>
+					<h6>Take me to the <a href="results/" title="map">map</a> already, damn it!</h6>
 				</div>
 				<!-- Attribution
 				a repurposed @vtcraghead joint, modified by @dmofot
