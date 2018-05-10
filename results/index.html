@@ -52,6 +52,9 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js'></script>
     <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/leaflet.markercluster.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/MarkerCluster.css' rel='stylesheet' />
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/MarkerCluster.Default.css' rel='stylesheet' />
 
     <script>
     bounds = new L.LatLngBounds(new L.LatLng(-89.98155760646617, -180), new L.LatLng(89.99346179538875, 180));
@@ -87,9 +90,17 @@
             }
         }
 
-        var myLayer = L.mapbox.featureLayer().addTo(map);
+        var myLayer = L.mapbox.featureLayer();
+
+        //var markers = new L.MarkerClusterGroup({showCoverageOnHover: false });
+        var markers = new L.MarkerClusterGroup();
 
         myLayer.setGeoJSON(brewerGeojson);
+
+        markers.addLayer(myLayer);
+        
+        map.addLayer(markers);
+
         myLayer.on('mouseover', function(e) {
             e.layer.openPopup();
         });
