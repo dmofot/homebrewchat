@@ -117,7 +117,10 @@
 		var map = L.mapbox.map('map', 'mapbox.streets', {
 			scrollWheelZoom:false,
 			maxBounds: bounds,
-			maxBoundsViscosity: 0.75
+			maxBoundsViscosity: 0.75,
+			attributionControl: {
+				compact: true
+			}
 		}).setView([y, x], z);
 
 		// Update these values as the map gets dragged around

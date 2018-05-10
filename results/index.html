@@ -14,6 +14,11 @@
 </head>
 <body>
     <style>
+        .mapbox-logo {
+            position:fixed;
+            top:0;
+            right:0;
+        }
         .leaflet-popup-content-wrapper {
             background: #227FBB !important;
         }
@@ -62,7 +67,10 @@
         L.mapbox.accessToken = 'pk.eyJ1IjoiZG1vZm90IiwiYSI6IjMyODFmMjkwYTQ1NjUxYTEzOWYwOGZlMTMxY2FjZThiIn0.eNpL_ksyAN2Tcy5UeLqhyQ';
         var map = L.mapbox.map('map', 'mapbox.streets', {
 			maxBounds: bounds,
-			maxBoundsViscosity: 0.75
+			maxBoundsViscosity: 0.75,
+			attributionControl: {
+				compact: true
+			}
 		})
 
         var brewers = data.feed.entry;
