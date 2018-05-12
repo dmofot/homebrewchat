@@ -6,15 +6,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<title>Homebrew Chat Member Map</title>
   	<link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/superhero/bootstrap.min.css" rel="stylesheet">
-  	<link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+  	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.45.0/mapbox-gl.css' rel='stylesheet' />
   		<!--[if lte IE 8]>
   			<link href='http://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.ie.css' rel='stylesheet'>
   		<![endif]-->
   	<style>
-  		.starter-template {
+		.starter-template {
   			padding: 10px 15px 0px;
   			text-align: center;
   		}
+		.jumbotron {
+			padding: 10px 15px 10px;
+		}
   		.submit-template {
   			padding: 5px 15px 0px;
   			text-align: center;
@@ -23,6 +26,9 @@
   			height:400px;
   			width:100%;
   		}
+		.mapboxgl-canvas {
+			position: relative !important;
+		}
   		#centerpoint {
   			display: none;
   			width: 128px;
@@ -79,9 +85,9 @@
 				THE "NAME" AND "ID" PARAMETERS MUST CORRESPOND TO
 				THOSE IN THE SOURCE OF THE GOOGLE-HOSTED LIVE FORM-->
 
-				<!-- QUESTION 2: LAT/LONG -->
-				<input type="hidden" name="entry.2119658880" value="" id="entry_2119658880">
+				<!-- QUESTION 2: LNG/LAT -->
 				<input type="hidden" name="entry.1984352115" value="" id="entry_1984352115">
+				<input type="hidden" name="entry.2119658880" value="" id="entry_2119658880">
 
 				<!-- PAGE STUFF -->
 				<input type="hidden" name="pageNumber" value="0">
@@ -102,45 +108,70 @@
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-	<script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
+	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.45.0/mapbox-gl.js'></script>
 	<script type='text/javascript'>
 		// Set default location in case the IP doesn't have one
-		var y = 37.09024;
 		var x = -95.71289;
+		var y = 37.09024;
 		var z = 8;
-		$('#entry_2119658880').attr('value', y);
 		$('#entry_1984352115').attr('value', x);
+		$('#entry_2119658880').attr('value', y);
 
 		// Build the map
-		bounds = new L.LatLngBounds(new L.LatLng(-89.98155760646617, -180), new L.LatLng(89.99346179538875, 180));
-		L.mapbox.accessToken = 'pk.eyJ1IjoiZG1vZm90IiwiYSI6IjMyODFmMjkwYTQ1NjUxYTEzOWYwOGZlMTMxY2FjZThiIn0.eNpL_ksyAN2Tcy5UeLqhyQ';
-		var map = L.mapbox.map('map', 'mapbox.streets', {
-			scrollWheelZoom:false,
-			maxBounds: bounds,
-			maxBoundsViscosity: 0.75,
-			attributionControl: {
-				compact: true
-			}
-		}).setView([y, x], z);
+		mapboxgl.accessToken = 'pk.eyJ1IjoiZG1vZm90IiwiYSI6IjMyODFmMjkwYTQ1NjUxYTEzOWYwOGZlMTMxY2FjZThiIn0.eNpL_ksyAN2Tcy5UeLqhyQ';
+		var map = new mapboxgl.Map({
+			container: 'map',
+			style: 'mapbox://styles/mapbox/streets-v9',
+			center: [x, y],
+			zoom: z,
+			maxBounds: [[-180, -90], [180, 90]],
+			attributionControl: false
+		});
+		map.addControl(new mapboxgl.NavigationControl()).addControl(new mapboxgl.AttributionControl({ compact: true }));
 
 		// Update these values as the map gets dragged around
 		map.on('moveend', function(event) {
-			$('#entry_2119658880').attr('value', map.getCenter().lat);
 			$('#entry_1984352115').attr('value', map.getCenter().lng);
+			$('#entry_2119658880').attr('value', map.getCenter().lat);
 		});
 
-		// Grab IP location from freegeoip API
-		$.getJSON('https://www.geoip-db.com/json/', function(json) {
-			if (json) {
-				y = json.latitude;
-				x = json.longitude;
-				z = 8
-				// Set form lat/lon fields from map center location
-				$('#entry_2119658880').attr('value', y);
-				$('#entry_1984352115').attr('value', x);
-				map.panTo([y, x]);
-			}
-		});
+		// If no in browser geolocation, grab IP location from geoip-db API
+		if (!navigator.geolocation){
+			$.getJSON('https://www.geoip-db.com/json/', function(json) {
+				if (json) {
+					x = json.longitude;
+					y = json.latitude;
+					// Set form lng/lat fields from map center location
+					$('#entry_1984352115').attr('value', x);
+					$('#entry_2119658880').attr('value', y);
+					console.log("# No in browser geolocation, using geoip-db API.")
+					map.flyTo({
+						center: [x, y]});
+				}
+			})
+		} else {
+			// or use in browser geolocation
+			navigator.geolocation.getCurrentPosition(function(position) {
+				x = position.coords.longitude;
+				y = position.coords.latitude;
+				console.log("# Using in browser geolocation.")
+				map.flyTo({
+					center: [x, y]});
+			}, function error() {
+				$.getJSON('https://www.geoip-db.com/json/', function(json) {
+					if (json) {
+						x = json.longitude;
+						y = json.latitude;
+						// Set form lng/lat fields from map center location
+						$('#entry_1984352115').attr('value', x);
+						$('#entry_2119658880').attr('value', y);
+						console.log("# Failed to use in browser geolocation, using geoip-db API.")
+						map.flyTo({
+							center: [x, y]});
+					}
+				})
+			}, {timeout:3000})
+		};
 	</script>
 </body>
 </html>
