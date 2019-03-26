@@ -115,6 +115,9 @@
         myLayer.on('mouseout', function(e) {
             e.layer.closePopup();
         });
+        map.addControl(L.mapbox.geocoderControl('mapbox.places', {
+            autocomplete: true
+        }));
         map.setView([39.12367, -106.81229], 4);
         map.fitBounds(myLayer.getBounds());
     });

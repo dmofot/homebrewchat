@@ -121,7 +121,10 @@
 			attributionControl: {
 				compact: true
 			}
-		}).setView([y, x], z);
+		}).setView([y, x], z)
+		.addControl(L.mapbox.geocoderControl('mapbox.places', {
+            autocomplete: true
+        }));
 
 		// Update these values as the map gets dragged around
 		map.on('moveend', function(event) {
