@@ -65,7 +65,7 @@
     bounds = new L.LatLngBounds(new L.LatLng(-89.98155760646617, -180), new L.LatLng(89.99346179538875, 180));
     $.getJSON("https://spreadsheets.google.com/feeds/list/1gNeN_1dzzSgfXKTcksIf_oTdUXJJFqPGsKQpSReHo3A/1/public/values?alt=json", function(data) {
         L.mapbox.accessToken = 'pk.eyJ1IjoiZG1vZm90IiwiYSI6IjMyODFmMjkwYTQ1NjUxYTEzOWYwOGZlMTMxY2FjZThiIn0.eNpL_ksyAN2Tcy5UeLqhyQ';
-        var map = L.mapbox.map('map', 'mapbox.streets', {
+        var map = L.mapbox.map('map', 'mapbox.satellite', {
 			maxBounds: bounds,
 			maxBoundsViscosity: 0.75,
 			attributionControl: {
