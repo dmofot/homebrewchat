@@ -63,7 +63,7 @@
 
     <script>
     bounds = new L.LatLngBounds(new L.LatLng(-89.98155760646617, -180), new L.LatLng(89.99346179538875, 180));
-    $.getJSON("https://spreadsheets.google.com/feeds/list/1gNeN_1dzzSgfXKTcksIf_oTdUXJJFqPGsKQpSReHo3A/1/public/values?alt=json", function(data) {
+    $.getJSON("https://sheets.googleapis.com/v4/spreadsheets/1gNeN_1dzzSgfXKTcksIf_oTdUXJJFqPGsKQpSReHo3A/values/Form%20Responses%201!B2:D?key=AIzaSyDS6kQ9NUrmiRXZbAc7sJjzhLq8nCgvXaI", function(data) {
         L.mapbox.accessToken = 'pk.eyJ1IjoiZG1vZm90IiwiYSI6IjMyODFmMjkwYTQ1NjUxYTEzOWYwOGZlMTMxY2FjZThiIn0.eNpL_ksyAN2Tcy5UeLqhyQ';
         var map = L.mapbox.map('map', null, {
 			maxBounds: bounds,
@@ -74,25 +74,25 @@
         })
         .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
 
-        var brewers = data.feed.entry;
+        var brewers = data.values;
 
         $("#brewer-count").text(brewers.length);
         var brewerGeojson = {type: 'FeatureCollection', features: []};
 
         for (var i in brewers) {
-            if (brewers[i].gsx$latitude.$t) {
+            if (brewers[i][1]) {
                 var feature = {
                     type: 'Feature',
                     properties: {
-                        title: '<h1>' + brewers[i].gsx$name.$t + '</h1>',
+                        title: '<h1>' + brewers[i][0] + '</h1>',
                         'marker-color': '#227FBB',
                         'marker-size': 'large',
                         'marker-symbol': 'beer',
-                        url: 'https://homebrewing.slack.com/team/' + brewers[i].gsx$name.$t
+                        url: 'https://homebrewing.slack.com/team/' + brewers[i][0]
                     },
                     geometry: {
                         type: 'Point',
-                        coordinates: [brewers[i].gsx$longitude.$t, brewers[i].gsx$latitude.$t]
+                        coordinates: [brewers[i][2], brewers[i][1]]
                     }
                 };
                 brewerGeojson.features.push(feature);
